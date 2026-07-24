@@ -200,7 +200,7 @@ where
         cipher.encrypt_block(&mut ghash_key);
 
         let ghash = GHash::new(&ghash_key);
-        panic!("ghash_key: {ghash_key:?}");
+        // panic!("ghash_key: {ghash_key:?}");
 
         #[cfg(feature = "zeroize")]
         ghash_key.zeroize();
@@ -326,6 +326,7 @@ where
         ghash.update(&[block]);
 
         let mut tag = ghash.finalize();
+        panic!("tag: {tag:?}\nmask: {mask:?}");
         for (a, b) in tag.as_mut_slice().iter_mut().zip(mask.as_slice()) {
             *a ^= *b;
         }
