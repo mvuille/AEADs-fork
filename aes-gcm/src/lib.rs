@@ -310,7 +310,7 @@ where
 
     /// Authenticate the given plaintext and associated data using GHASH
     fn compute_tag(&self, mask: Block, associated_data: &[u8], buffer: &[u8]) -> Tag {
-        panic!("\n\nmask: {mask:?}\nassociated_data: {associated_data:?}\nbuffer: {buffer:?}");
+        // panic!("\n\nmask: {mask:?}\nassociated_data: {associated_data:?}\nbuffer: {buffer:?}");
         let mut ghash = self.ghash.clone();
         ghash.update_padded(associated_data);
         ghash.update_padded(buffer);
@@ -321,6 +321,7 @@ where
         let mut block = ghash::Block::default();
         block[..8].copy_from_slice(&associated_data_bits.to_be_bytes());
         block[8..].copy_from_slice(&buffer_bits.to_be_bytes());
+        panic!("block: {block:?}");
         ghash.update(&[block]);
 
         let mut tag = ghash.finalize();
