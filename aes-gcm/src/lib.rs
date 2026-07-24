@@ -200,6 +200,7 @@ where
         cipher.encrypt_block(&mut ghash_key);
 
         let ghash = GHash::new(&ghash_key);
+        panic!("ghash_key: {ghash_key:?}");
 
         #[cfg(feature = "zeroize")]
         ghash_key.zeroize();
@@ -321,7 +322,7 @@ where
         let mut block = ghash::Block::default();
         block[..8].copy_from_slice(&associated_data_bits.to_be_bytes());
         block[8..].copy_from_slice(&buffer_bits.to_be_bytes());
-        panic!("block: {block:?}");
+        // panic!("block: {block:?}");
         ghash.update(&[block]);
 
         let mut tag = ghash.finalize();
